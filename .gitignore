@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+
+config.py
+
+.env
+.venv/
+
+command_history.txt

@@ -1,0 +1,341 @@
+Microsoft Windows [Version 10.0.26100.9168]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\surabhi>cd C:\snipeit_test
+
+C:\snipeit_test>dir *.py
+ Volume in drive C is WINDOWS
+ Volume Serial Number is 7EFB-3D0B
+
+ Directory of C:\snipeit_test
+
+09/23/2026  11:33 AM               907 asset_details.py
+09/23/2026  11:40 AM               379 asset_notes.py
+09/23/2026  11:52 AM               453 assigned_assets.py
+09/23/2026  01:10 PM             1,518 barcode_test.py
+09/23/2026  01:19 PM             4,403 barcode_test_v2.py
+09/23/2026  02:23 PM             8,118 camera_components.py
+09/23/2026  11:54 AM               804 checkin_asset.py
+09/23/2026  01:06 PM             1,326 checkout_asset.py
+09/23/2026  02:54 PM               855 clean_test_notes.py
+09/23/2026  02:45 PM             1,352 compare_fields.py
+09/23/2026  01:48 PM               615 component_api_test.py
+09/23/2026  01:50 PM               689 component_assignments.py
+09/23/2026  02:00 PM             2,851 component_checkin_test.py
+09/23/2026  01:55 PM             2,032 component_checkout_test.py
+09/23/2026  11:20 AM             1,074 config.py
+09/23/2026  02:58 PM             2,134 ecami_inventory.py
+09/23/2026  02:05 PM             2,191 ecami_tms.py
+09/23/2026  02:10 PM             7,608 ecami_tm_manager.py
+09/23/2026  11:31 AM               893 find_asset.py
+09/23/2026  11:26 AM               557 get_asset.py
+09/23/2026  11:44 AM             1,526 inventory_api.py
+09/23/2026  02:36 PM             3,845 inventory_audit.py
+09/23/2026  11:23 AM               428 list_assets.py
+09/23/2026  02:49 PM               526 list_locations.py
+09/23/2026  11:38 AM               220 pagination_test.py
+09/23/2026  11:49 AM             1,509 report_issue.py
+09/23/2026  02:02 PM            16,232 scanner_workflow.py
+09/23/2026  03:00 PM             2,125 snipe_it_rm_tm_from_ecami.py
+09/23/2026  02:17 PM             7,424 tm_scanner.py
+09/23/2026  11:44 AM               776 update_notes.py
+              30 File(s)         75,370 bytes
+               0 Dir(s)  167,460,122,624 bytes free
+
+C:\snipeit_test>py ecami_inventory.py
+======================================================================
+ECAMi INVENTORY
+======================================================================
+
+ECAMi asset ID: 126
+
+Reading inventory...
+
+======================================================================
+ASSETS CHECKED OUT TO ECAMi
+======================================================================
+
+FEE
+----------------------------------------------------------------------
+ID: 117 | Tag: 11100044 | Name:  | Serial: TM0051
+ID: 116 | Tag: 11100043 | Name:  | Serial: TM0050
+ID: 112 | Tag: 11100040 | Name:  | Serial: TM0047
+ID: 111 | Tag: 11100039 | Name:  | Serial: TM0046
+ID: 110 | Tag: 11100038 | Name:  | Serial: TM0045
+ID: 106 | Tag: 11100034 | Name:  | Serial: TM0041
+ID: 105 | Tag: 11100033 | Name:  | Serial: TM0040
+ID: 104 | Tag: 11100032 | Name:  | Serial: TM0039
+ID: 103 | Tag: 11100031 | Name:  | Serial: TM0038
+ID: 101 | Tag: 11100029 | Name:  | Serial: TM0036
+ID: 100 | Tag: 11100028 | Name:  | Serial: TM0035
+ID: 98 | Tag: 11100026 | Name:  | Serial: TM0033
+ID: 97 | Tag: 11100025 | Name:  | Serial: TM0032
+ID: 96 | Tag: 11100024 | Name:  | Serial: TM0031
+ID: 95 | Tag: 11100023 | Name:  | Serial: TM0030
+ID: 88 | Tag: 11100021 | Name:  | Serial: TM0028
+ID: 86 | Tag: 11100020 | Name:  | Serial: TM0027
+ID: 85 | Tag: 11100019 | Name:  | Serial: TM0026
+ID: 82 | Tag: 11100016 | Name:  | Serial: TM0022
+ID: 81 | Tag: 11100015 | Name:  | Serial: TM0021
+ID: 80 | Tag: 11100014 | Name:  | Serial: TM0020
+ID: 76 | Tag: 11100013 | Name:  | Serial: TM0019
+ID: 75 | Tag: 11100012 | Name:  | Serial: TM0018
+ID: 74 | Tag: 11100011 | Name:  | Serial: TM0016
+ID: 49 | Tag: 10000013 | Name:  | Serial: TM0015
+ID: 45 | Tag: 10000009 | Name:  | Serial: TM0012
+ID: 44 | Tag: 10000008 | Name:  | Serial: TM0010
+ID: 43 | Tag: 10000007 | Name:  | Serial: TM0009
+ID: 41 | Tag: 10000005 | Name:  | Serial: TM0007
+ID: 39 | Tag: 10000003 | Name:  | Serial: TM0005
+
+Category total: 30
+
+FPE
+----------------------------------------------------------------------
+ID: 168 | Tag: 11100095 | Name: FPE0004 | Serial: FPE0004
+ID: 167 | Tag: 11100094 | Name: FPE0043 | Serial: FPE0043
+ID: 166 | Tag: 11100093 | Name: FPE0034 | Serial: FPE0034
+ID: 165 | Tag: 11100092 | Name: FPE0036 | Serial: FPE0036
+ID: 164 | Tag: 11100091 | Name: FPE0010 | Serial: FPE0010
+ID: 163 | Tag: 11100090 | Name: FPE0032 | Serial: FPE0032
+ID: 162 | Tag: 11100089 | Name: FPE0018 | Serial: FPE0018
+ID: 161 | Tag: 11100088 | Name: FPE0033 | Serial: FPE0033
+ID: 160 | Tag: 11100087 | Name: FPE0028 | Serial: FPE0028
+ID: 159 | Tag: 11100086 | Name: FPE0008 | Serial: FPE0008
+ID: 158 | Tag: 11100085 | Name: FPE0040 | Serial: FPE0040
+ID: 157 | Tag: 11100084 | Name: FPE0035 | Serial: FPE0035
+ID: 156 | Tag: 11100083 | Name: FPE0037 | Serial: FPE0037
+ID: 155 | Tag: 11100082 | Name: FPE0009 | Serial: FPE0009
+ID: 154 | Tag: 11100081 | Name: FPE0038 | Serial: FPE0038
+ID: 153 | Tag: 11100080 | Name: FPE0005 | Serial: FPE0005
+ID: 152 | Tag: 11100079 | Name: FPE0002 | Serial: FPE0002
+ID: 151 | Tag: 11100078 | Name: FPE0039 | Serial: FPE0039
+ID: 150 | Tag: 11100077 | Name: FPE0016 | Serial: FPE0016
+ID: 149 | Tag: 11100076 | Name: FPE0017 | Serial: FPE0017
+ID: 148 | Tag: 11100075 | Name: FPE0025 | Serial: FPE0025
+ID: 147 | Tag: 11100074 | Name: FPE0030 | Serial: FPE0030
+ID: 146 | Tag: 11100073 | Name: FPE0003 | Serial: FPE0003
+ID: 145 | Tag: 11100072 | Name: FPE0029 | Serial: FPE0029
+ID: 144 | Tag: 11100071 | Name: FPE0006 | Serial: FPE0006
+ID: 143 | Tag: 11100070 | Name: FPE0019 | Serial: FPE0019
+ID: 142 | Tag: 11100069 | Name: FPE0041 | Serial: FPE0041
+ID: 141 | Tag: 11100068 | Name: FPE0026 | Serial: FPE0026
+ID: 140 | Tag: 11100067 | Name: FPE0023 | Serial: FPE0023
+ID: 139 | Tag: 11100066 | Name: FPE0020 | Serial: FPE0020
+ID: 138 | Tag: 11100065 | Name: FPE0024 | Serial: FPE0024
+ID: 137 | Tag: 11100064 | Name: FPE0022 | Serial: FPE0022
+
+Category total: 32
+
+Mechanics
+----------------------------------------------------------------------
+ID: 130 | Tag: 11100057 | Name:  | Serial: EB001
+ID: 129 | Tag: 11100056 | Name:  | Serial: PP0002
+ID: 128 | Tag: 11100055 | Name:  | Serial: EF0003
+ID: 127 | Tag: 11100054 | Name:  | Serial: EH0004
+
+Category total: 4
+
+SiPM
+----------------------------------------------------------------------
+ID: 216 | Tag: 11100143 | Name: SiPM0079 | Serial: SiPM0079
+ID: 215 | Tag: 11100142 | Name: SiPM0048 | Serial: SiPM0048
+ID: 214 | Tag: 11100141 | Name: SiPM0047 | Serial: SiPM0047
+ID: 213 | Tag: 11100140 | Name: SiPM0070 | Serial: SiPM0070
+ID: 212 | Tag: 11100139 | Name: SiPM0066 | Serial: SiPM0066
+ID: 211 | Tag: 11100138 | Name: SiPM0085 | Serial: SiPM0085
+ID: 210 | Tag: 11100137 | Name: SiPM0081 | Serial: SiPM0081
+ID: 209 | Tag: 11100136 | Name: SiPM0076 | Serial: SiPM0076
+ID: 208 | Tag: 11100135 | Name: SiPM0074 | Serial: SiPM0074
+ID: 207 | Tag: 11100134 | Name: SiPM0080 | Serial: SiPM0080
+ID: 206 | Tag: 11100133 | Name: SiPM0033 | Serial: SiPM0033
+ID: 205 | Tag: 11100132 | Name: SiPM0042 | Serial: SiPM0042
+ID: 204 | Tag: 11100131 | Name: SiPM0041 | Serial: SiPM0041
+ID: 203 | Tag: 11100130 | Name: SiPM0040 | Serial: SiPM0040
+ID: 202 | Tag: 11100129 | Name: SiPM0067 | Serial: SiPM0067
+ID: 201 | Tag: 11100128 | Name: SiPM0034 | Serial: SiPM0034
+ID: 200 | Tag: 11100127 | Name: SiPM0028 | Serial: SiPM0028
+ID: 199 | Tag: 11100126 | Name: SiPM0030 | Serial: SiPM0030
+ID: 198 | Tag: 11100125 | Name: SiPM0036 | Serial: SiPM0036
+ID: 197 | Tag: 11100124 | Name: SiPM0020 | Serial: SiPM0020
+ID: 196 | Tag: 11100123 | Name: SiPM0015 | Serial: SiPM0015
+ID: 195 | Tag: 11100122 | Name: SiPM0001 | Serial: SiPM0001
+ID: 194 | Tag: 11100121 | Name: SiPM0007 | Serial: SiPM0007
+ID: 193 | Tag: 11100120 | Name: SiPM0009 | Serial: SiPM0009
+ID: 192 | Tag: 11100119 | Name: SiPM0002 | Serial: SiPM0002
+ID: 191 | Tag: 11100118 | Name: SiPM0026 | Serial: SiPM0026
+ID: 190 | Tag: 11100117 | Name: SiPM0031 | Serial: SiPM0031
+ID: 189 | Tag: 11100116 | Name: SiPM0021 | Serial: SiPM0021
+ID: 188 | Tag: 11100115 | Name: SiPM0027 | Serial: SiPM0027
+ID: 187 | Tag: 11100114 | Name: SiPM0023 | Serial: SiPM0023
+ID: 186 | Tag: 11100113 | Name: SiPM0003 | Serial: SiPM0003
+
+Category total: 31
+
+======================================================================
+SUMMARY
+======================================================================
+
+Total assets in ECAMi: 97
+
+Categories represented: 4
+
+======================================================================
+NO CHANGES WERE MADE.
+======================================================================
+
+C:\snipeit_test>py find_asset.py
+Enter asset tag or serial number: 11100044
+
+Asset found
+========================================
+ID: 117
+Asset tag: 11100044
+Name:
+Serial: TM0051
+Model: SSTCAM Target Module
+Status: Ready to Deploy
+
+
+C:\snipeit_test>py tm_scanner.py
+======================================================================
+SSTCAM TARGET MODULE SCANNER
+======================================================================
+
+======================================================================
+SCAN TARGET MODULE
+======================================================================
+
+Scan a Target Module QR code/barcode.
+
+Scan: 11100044
+
+======================================================================
+TARGET MODULE
+======================================================================
+ID: 117
+Asset tag: 11100044
+Serial: TM0051
+Model: SSTCAM Target Module
+Status: Ready to Deploy
+Location: MPIK
+Assigned to:  (11100053) - Camera Unit
+Assignment type: asset
+
+======================================================================
+TM IS CURRENTLY IN ECAMi
+======================================================================
+1. View details
+2. Remove from ECAMi
+3. Scan another
+0. Exit
+
+Choose an option: 0
+
+Goodbye.
+
+C:\snipeit_test>py camera_components.py
+
+======================================================================
+CAMERA COMPONENT MANAGER
+======================================================================
+Camera ID: 126
+
+1. View camera
+2. List assigned components
+3. Add component to camera
+4. Remove component from camera
+0. Exit
+
+Choose an option: 1
+
+======================================================================
+CAMERA
+======================================================================
+ID: 126
+Asset tag: 11100053
+Name:
+Serial: ECAMi
+Model: Camera Unit
+Status: Pending
+Location: MPIK
+
+======================================================================
+CAMERA COMPONENT MANAGER
+======================================================================
+Camera ID: 126
+
+1. View camera
+2. List assigned components
+3. Add component to camera
+4. Remove component from camera
+0. Exit
+
+Choose an option: 0
+
+Goodbye.
+
+C:\snipeit_test>py inventory_audit.py
+======================================================================
+SSTCAM INVENTORY AUDIT
+======================================================================
+
+Reading inventory...
+No changes will be made.
+
+======================================================================
+ASSET AUDIT
+======================================================================
+Total assets: 157
+
+Missing asset tag: 0
+Missing serial: 0
+Missing model: 0
+Missing category: 0
+Missing status: 0
+
+
+======================================================================
+COMPONENT AUDIT
+======================================================================
+Total components: 62
+
+Missing category: 0
+Missing location: 3
+
+Components missing location:
+  ID: 29 | Name: Distribution Block
+  ID: 6 | Name: Staubli CBI09.7162/IA/JE
+  ID: 1 | Name: XC7A100T-3FGG484E
+
+
+======================================================================
+AUDIT COMPLETE
+======================================================================
+
+NO CHANGES WERE MADE TO THE INVENTORY.
+
+C:\snipeit_test>notepad inventory_api.py
+
+C:\snipeit_test>py asset_details.py
+Enter asset ID: 217
+
+Asset Details
+==================================================
+ID: 217
+Asset tag: 11100144
+Name: SiPM0019
+Serial: SiPM0019
+Model: SiPM
+Category: SiPM
+Status: Ready to Deploy
+Location: Not assigned
+Assigned to: Nobody
+
+C:\snipeit_test>doskey /history > C:\snipeit_test\command_history.txt
+
+C:\snipeit_test>notepad C:\snipeit_test\command_history.txt
+
+C:\snipeit_test>notepad C:\snipeit_test\demo_session.txt
+
+C:\snipeit_test>
