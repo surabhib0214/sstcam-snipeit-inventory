@@ -1,7 +1,7 @@
 import os
 import requests
 
-from config import BASE_URL
+BASE_URL = "https://sstcam-inventory.ecap.work/api/v1"
 
 API_KEY = os.getenv("SNIPEIT_API_KEY")
 
