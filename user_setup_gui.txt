@@ -1,0 +1,373 @@
+SSTCAM INVENTORY GUI
+Setup Guide for Authorized Users
+
+Version: 1.0
+
+==================================================
+
+1. WHAT THIS APPLICATION DOES
+   ==================================================
+
+The SSTCam Inventory application provides a simple web interface for working with the SSTCam inventory stored in Snipe-IT.
+
+The application includes:
+
+* Asset search
+* Asset details
+* Check-in / check-out
+* Report issue
+* ECAMi inventory
+* Target Module management
+* Camera component management
+* Inventory audit
+
+Snipe-IT remains the source of truth for the inventory.
+
+The application runs locally on the user's laptop using NiceGUI.
+
+IMPORTANT:
+This application is intended for authorized SSTCam users only.
+
+==================================================
+2. BEFORE STARTING
+==================
+
+You need:
+
+1. Access to the private GitHub repository:
+
+   https://github.com/surabhib0214/sstcam-snipeit-inventory
+
+2. Python installed on your laptop.
+
+3. Git installed on your laptop.
+
+4. An authorized Snipe-IT API token.
+
+Do NOT use another person's API token.
+
+Do NOT publish or share your API token.
+
+==================================================
+3. STEP 1 — INSTALL PYTHON
+==========================
+
+Install Python 3 from:
+
+https://www.python.org/downloads/
+
+During installation on Windows, make sure:
+
+[✓] Add Python to PATH
+
+is selected.
+
+After installation, open PowerShell and check:
+
+py --version
+
+You should see something similar to:
+
+Python 3.x.x
+
+==================================================
+4. STEP 2 — INSTALL GIT
+=======================
+
+Install Git for Windows from:
+
+https://git-scm.com/download/win
+
+After installation, open PowerShell and check:
+
+git --version
+
+You should see a Git version number.
+
+==================================================
+5. STEP 3 — GET ACCESS TO THE PROJECT
+=====================================
+
+The GitHub repository is private.
+
+The repository owner must add your GitHub account as a collaborator.
+
+After you have been granted access, open PowerShell and run:
+
+git clone https://github.com/surabhib0214/sstcam-snipeit-inventory.git
+
+Then enter the project directory:
+
+cd sstcam-snipeit-inventory
+
+==================================================
+6. STEP 4 — INSTALL THE PYTHON PACKAGES
+=======================================
+
+Inside the project directory, run:
+
+py -m pip install -r requirements.txt
+
+Wait until the installation finishes.
+
+==================================================
+7. STEP 5 — CREATE YOUR LOCAL CONFIGURATION
+===========================================
+
+IMPORTANT:
+
+The repository does NOT contain config.py.
+
+This is intentional because config.py contains your private Snipe-IT API credentials.
+
+Copy:
+
+config.example.py
+
+to:
+
+config.py
+
+On Windows PowerShell you can run:
+
+Copy-Item config.example.py config.py
+
+Then open:
+
+notepad config.py
+
+==================================================
+8. STEP 6 — ENTER YOUR SNIPE-IT API TOKEN
+=========================================
+
+Your config.py should contain:
+
+API_KEY = "YOUR_SNIPE_IT_API_TOKEN"
+
+BASE_URL = "https://sstcam-inventory.ecap.work/api/v1"
+
+ECAMI_ASSET_ID = 126
+
+Replace:
+
+YOUR_SNIPE_IT_API_TOKEN
+
+with your own authorized Snipe-IT API token.
+
+Do NOT share this token with other users.
+
+Save config.py.
+
+==================================================
+9. STEP 7 — START THE APPLICATION
+=================================
+
+In PowerShell, make sure you are inside the project directory:
+
+cd sstcam-snipeit-inventory
+
+Then run:
+
+py gui.py
+
+You should see something similar to:
+
+NiceGUI ready to go on http://localhost:10000
+
+==================================================
+10. STEP 8 — OPEN THE GUI
+=========================
+
+Open Chrome, Edge, or another web browser.
+
+Go to:
+
+http://localhost:10000
+
+The SSTCam Inventory application should appear.
+
+==================================================
+11. IMPORTANT — KEEP THE TERMINAL OPEN
+======================================
+
+While using the application, keep the PowerShell window running.
+
+The application stops when:
+
+* The PowerShell window is closed
+* The Python process is stopped
+* The computer is shut down
+
+==================================================
+12. STOPPING THE APPLICATION
+============================
+
+When finished, return to the PowerShell window where:
+
+py gui.py
+
+is running.
+
+Press:
+
+Ctrl + C
+
+The application will stop.
+
+==================================================
+13. STARTING IT AGAIN LATER
+===========================
+
+Open PowerShell.
+
+Go to the project directory:
+
+cd sstcam-snipeit-inventory
+
+Run:
+
+py gui.py
+
+Then open:
+
+http://localhost:10000
+
+==================================================
+14. SECURITY
+============
+
+The GitHub repository should remain private unless there is a specific reason to make it public.
+
+Never commit:
+
+config.py
+
+Never commit:
+
+Snipe-IT API tokens
+
+Never send API tokens through email, chat, or GitHub.
+
+Each authorized user should use their own Snipe-IT credentials/token where possible.
+
+If an API token is accidentally exposed, revoke/rotate it immediately.
+
+==================================================
+15. TROUBLESHOOTING
+===================
+
+PROBLEM:
+
+"py is not recognized"
+
+SOLUTION:
+
+Install Python and make sure Python was added to PATH.
+
+PROBLEM:
+
+"git is not recognized"
+
+SOLUTION:
+
+Install Git for Windows.
+
+PROBLEM:
+
+"ModuleNotFoundError"
+
+SOLUTION:
+
+Run:
+
+py -m pip install -r requirements.txt
+
+PROBLEM:
+
+"Snipe-IT API key is not configured"
+
+SOLUTION:
+
+Make sure:
+
+config.py
+
+exists in the project folder and contains a valid API key.
+
+PROBLEM:
+
+The browser cannot open localhost:10000
+
+SOLUTION:
+
+Make sure:
+
+py gui.py
+
+is still running in PowerShell.
+
+Then open:
+
+http://localhost:10000
+
+==================================================
+16. PROJECT STRUCTURE
+=====================
+
+The important files are:
+
+gui.py
+NiceGUI web interface.
+
+inventory_api.py
+Connection between the application and Snipe-IT.
+
+config.py
+Local Snipe-IT configuration and API token.
+NOT stored in GitHub.
+
+config.example.py
+Example configuration file.
+
+requirements.txt
+Python dependencies.
+
+==================================================
+17. SUMMARY
+===========
+
+The complete process for a new authorized user is:
+
+1. Get access to the private GitHub repository.
+
+2. Install Python.
+
+3. Install Git.
+
+4. Clone the repository:
+
+   git clone https://github.com/surabhib0214/sstcam-snipeit-inventory.git
+
+5. Enter the directory:
+
+   cd sstcam-snipeit-inventory
+
+6. Install dependencies:
+
+   py -m pip install -r requirements.txt
+
+7. Create config.py:
+
+   Copy-Item config.example.py config.py
+
+8. Add the user's own Snipe-IT API token to config.py.
+
+9. Start the application:
+
+   py gui.py
+
+10. Open:
+
+http://localhost:10000
+
+The application will then run locally on that user's laptop while using the central Snipe-IT system for inventory data.

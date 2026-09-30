@@ -1,74 +1,53 @@
 import os
 import requests
 
+# Snipe-IT API base URL
 BASE_URL = "https://sstcam-inventory.ecap.work/api/v1"
 
-API_KEY = os.getenv("SNIPEIT_API_KEY")
+# Local laptop:
+#   Uses API_KEY from config.py
+#
+# Cloud/server:
+#   Uses SNIPEIT_API_KEY environment variable
+#
+# Environment variable takes priority when available.
+
+try:
+    from config import API_KEY as LOCAL_API_KEY
+except ImportError:
+    LOCAL_API_KEY = None
+
+API_KEY = os.getenv("SNIPEIT_API_KEY") or LOCAL_API_KEY
 
 if not API_KEY:
-    raise RuntimeError("SNIPEIT_API_KEY environment variable is not set")
+    raise RuntimeError(
+        "Snipe-IT API key is not configured. "
+        "Create config.py for local use or set SNIPEIT_API_KEY for server deployment."
+    )
 
 HEADERS = {
     "Authorization": f"Bearer {API_KEY}",
     "Accept": "application/json",
+    "Content-Type": "application/json",
 }
 
 
 def get(endpoint):
-    """Send a GET request to the Snipe-IT API."""
-
     url = f"{BASE_URL}{endpoint}"
-
-    response = requests.get(
-        url,
-        headers=HEADERS
-    )
-
-    if response.status_code != 200:
-        print("API request failed")
-        print("Status:", response.status_code)
-        print("Response:", response.text)
-
+    response = requests.get(url, headers=HEADERS)
     response.raise_for_status()
-
     return response.json()
 
 
-def post(endpoint, payload=None):
-    """Send a POST request to the Snipe-IT API."""
-
+def post(endpoint, data):
     url = f"{BASE_URL}{endpoint}"
-
-    response = requests.post(
-        url,
-        headers=HEADERS,
-        json=payload or {}
-    )
-
-    if response.status_code not in [200, 201]:
-        print("API request failed")
-        print("Status:", response.status_code)
-        print("Response:", response.text)
-
+    response = requests.post(url, headers=HEADERS, json=data)
     response.raise_for_status()
-
     return response.json()
-def put(endpoint, payload=None):
-    """Send a PUT request to the Snipe-IT API."""
 
+
+def put(endpoint, data):
     url = f"{BASE_URL}{endpoint}"
-
-    response = requests.put(
-        url,
-        headers=HEADERS,
-        json=payload or {}
-    )
-
-    if response.status_code not in [200, 201]:
-        print("API request failed")
-        print("Status:", response.status_code)
-        print("Response:", response.text)
-
+    response = requests.put(url, headers=HEADERS, json=data)
     response.raise_for_status()
-
     return response.json()
