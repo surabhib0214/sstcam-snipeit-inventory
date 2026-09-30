@@ -1,7 +1,12 @@
+import os
 import requests
 
-from config import API_KEY, BASE_URL
+from config import BASE_URL
 
+API_KEY = os.getenv("SNIPEIT_API_KEY")
+
+if not API_KEY:
+    raise RuntimeError("SNIPEIT_API_KEY environment variable is not set")
 
 HEADERS = {
     "Authorization": f"Bearer {API_KEY}",
