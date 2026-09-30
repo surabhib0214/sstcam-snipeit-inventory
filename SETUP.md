@@ -58,7 +58,7 @@ If Git is not installed, install Git for Windows first.
 Install the required Python package:
 
 ```bat
-py -m pip install requests
+py -m pip install -r requirements.txt
 ```
 
 The project currently uses the `requests` package to communicate with the Snipe-IT API.
