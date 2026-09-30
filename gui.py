@@ -1,10 +1,59 @@
 from nicegui import ui
-
 from inventory_api import get, post, put
-
 import os
+from openpyxl import Workbook
+from io import BytesIO
 
+def export_ecami_excel(rows):
 
+    workbook = Workbook()
+    worksheet = workbook.active
+    worksheet.title = "ECAMi Inventory"
+
+    if not rows:
+        return
+
+    headers = list(rows[0].keys())
+
+    worksheet.append(headers)
+
+    for row in rows:
+        worksheet.append([
+            row.get(header, "")
+            for header in headers
+        ])
+
+    # Make columns readable
+    for column in worksheet.columns:
+
+        max_length = 0
+        column_letter = column[0].column_letter
+
+        for cell in column:
+            value = str(cell.value or "")
+            max_length = max(
+                max_length,
+                len(value)
+            )
+
+        worksheet.column_dimensions[
+            column_letter
+        ].width = min(
+            max_length + 2,
+            40
+        )
+
+    # Create Excel file in memory
+    file_stream = BytesIO()
+
+    workbook.save(file_stream)
+
+    file_stream.seek(0)
+
+    ui.download(
+        file_stream.getvalue(),
+        "ecami_inventory.xlsx"
+    )
 # =========================================================
 # Configuration
 # =========================================================
@@ -1008,6 +1057,10 @@ with ui.tab_panels(
     # ECAMi
     # =====================================================
 
+       # =====================================================
+    # ECAMi Inventory
+    # =====================================================
+
     with ui.tab_panel(ecami_tab):
 
         ui.label(
@@ -1018,9 +1071,52 @@ with ui.tab_panels(
             "Assets currently assigned to the ECAMi camera unit."
         ).classes("text-grey-7")
 
-        ecami_result = ui.column().classes(
-            "w-full"
-        )
+        ecami_result = ui.column().classes("w-full")
+
+        def display_value(value):
+
+            if value is None:
+                return ""
+
+            if isinstance(value, dict):
+
+                if "name" in value:
+                    return str(value["name"])
+
+                if "formatted" in value:
+                    return str(value["formatted"])
+
+                if "datetime" in value:
+                    return str(value["datetime"])
+
+                return ", ".join(
+                    str(v)
+                    for v in value.values()
+                    if v not in (None, "")
+                )
+
+            if isinstance(value, bool):
+                return "Yes" if value else "No"
+
+            return str(value)
+
+        def custom_field_value(field):
+
+            if not isinstance(field, dict):
+                return display_value(field)
+
+            value = field.get("value")
+
+            if value in (None, ""):
+                return ""
+
+            if isinstance(value, list):
+                return ", ".join(
+                    display_value(item)
+                    for item in value
+                )
+
+            return display_value(value)
 
         def load_ecami_inventory():
 
@@ -1039,24 +1135,150 @@ with ui.tab_panels(
                 ecami_assets = [
                     asset
                     for asset in assets
-                    if is_ecami_asset(asset)
+                    if (
+                        asset.get("assigned_to")
+                        and asset["assigned_to"].get("type") == "asset"
+                        and asset["assigned_to"].get("id") == 126
+                    )
                 ]
 
-                categories = {}
+                standard_fields = [
+                    ("Asset ID", "id"),
+                    ("Asset Tag", "asset_tag"),
+                    ("Asset Name", "name"),
+                    ("Serial", "serial"),
+                    ("Category", "category"),
+                    ("Status", "status_label"),
+                    ("Manufacturer", "manufacturer"),
+                    ("Model", "model"),
+                    ("Model No.", "model_number"),
+                    ("Supplier", "supplier"),
+                    ("Location", "location"),
+                    ("Assigned To", "assigned_to"),
+                    ("Notes", "notes"),
+                    ("Order Number", "order_number"),
+                    ("Company", "company"),
+                    ("Purchase Date", "purchase_date"),
+                    ("Purchase Cost", "purchase_cost"),
+                    ("Warranty Months", "warranty_months"),
+                    ("Warranty Expires", "warranty_expires"),
+                    ("Last Checkout", "last_checkout"),
+                    ("Expected Check-in", "expected_checkin"),
+                    ("Last Audit", "last_audit_date"),
+                    ("Next Audit", "next_audit_date"),
+                ]
+
+                custom_field_names = set()
 
                 for asset in ecami_assets:
 
-                    category = asset.get("category") or {}
-
-                    category_name = (
-                        category.get("name")
-                        or "Uncategorized"
+                    custom_fields = (
+                        asset.get("custom_fields") or {}
                     )
 
-                    categories.setdefault(
-                        category_name,
-                        []
-                    ).append(asset)
+                    for field_name in custom_fields:
+                        custom_field_names.add(field_name)
+
+                custom_field_names = sorted(
+                    custom_field_names
+                )
+
+                rows = []
+
+                for asset in ecami_assets:
+
+                    row = {
+                        "Asset ID": asset.get("id"),
+                        "Asset Tag": display_value(
+                            asset.get("asset_tag")
+                        ),
+                        "Asset Name": display_value(
+                            asset.get("name")
+                        ),
+                        "Serial": display_value(
+                            asset.get("serial")
+                        ),
+                        "Category": display_value(
+                            asset.get("category")
+                        ),
+                        "Status": display_value(
+                            asset.get("status_label")
+                        ),
+                        "Manufacturer": display_value(
+                            asset.get("manufacturer")
+                        ),
+                        "Model": display_value(
+                            asset.get("model")
+                        ),
+                        "Model No.": display_value(
+                            asset.get("model_number")
+                        ),
+                        "Supplier": display_value(
+                            asset.get("supplier")
+                        ),
+                        "Location": display_value(
+                            asset.get("location")
+                        ),
+                        "Assigned To": display_value(
+                            asset.get("assigned_to")
+                        ),
+                        "Notes": display_value(
+                            asset.get("notes")
+                        ),
+                        "Order Number": display_value(
+                            asset.get("order_number")
+                        ),
+                        "Company": display_value(
+                            asset.get("company")
+                        ),
+                        "Purchase Date": display_value(
+                            asset.get("purchase_date")
+                        ),
+                        "Purchase Cost": display_value(
+                            asset.get("purchase_cost")
+                        ),
+                        "Warranty Months": display_value(
+                            asset.get("warranty_months")
+                        ),
+                        "Warranty Expires": display_value(
+                            asset.get("warranty_expires")
+                        ),
+                        "Last Checkout": display_value(
+                            asset.get("last_checkout")
+                        ),
+                        "Expected Check-in": display_value(
+                            asset.get("expected_checkin")
+                        ),
+                        "Last Audit": display_value(
+                            asset.get("last_audit_date")
+                        ),
+                        "Next Audit": display_value(
+                            asset.get("next_audit_date")
+                        ),
+                    }
+
+                    custom_fields = (
+                        asset.get("custom_fields") or {}
+                    )
+
+                    for field_name in custom_field_names:
+
+                        field = custom_fields.get(field_name)
+
+                        row[field_name] = (
+                            custom_field_value(field)
+                            if field
+                            else ""
+                        )
+
+                    rows.append(row)
+
+                rows.sort(
+                    key=lambda row: (
+                        str(row.get("Category", "")),
+                        str(row.get("Asset Tag", ""))
+                    )
+                )
 
                 ecami_result.clear()
 
@@ -1067,16 +1289,26 @@ with ui.tab_panels(
                     ):
 
                         ui.label(
-                            f"{len(ecami_assets)} assets assigned to ECAMi"
+                            f"{len(rows)} assets assigned to ECAMi"
                         ).classes("text-h6")
 
-                        ui.button(
-                            "Refresh",
-                            icon="refresh",
-                            on_click=load_ecami_inventory
-                        ).props("flat")
+                        with ui.row():
 
-                    if not ecami_assets:
+                            ui.button(
+                                "Export Excel",
+                                icon="download",
+                                on_click=lambda: export_ecami_excel(
+                                    rows
+                                )
+                            ).props("outline")
+
+                            ui.button(
+                                "Refresh",
+                                icon="refresh",
+                                on_click=load_ecami_inventory
+                            ).props("flat")
+
+                    if not rows:
 
                         ui.label(
                             "No assets are currently assigned to ECAMi."
@@ -1084,28 +1316,97 @@ with ui.tab_panels(
 
                         return
 
-                    for category_name in sorted(categories):
+                    search_input = ui.input(
+                        label="Search ECAMi inventory",
+                        placeholder=(
+                            "Search asset tag, name, serial, "
+                            "category, manufacturer, or custom field"
+                        )
+                    ).props(
+                        "outlined clearable"
+                    ).classes(
+                        "w-full"
+                    )
 
-                        category_assets = categories[
-                            category_name
-                        ]
+                    table_container = ui.column().classes(
+                        "w-full"
+                    )
 
-                        with ui.expansion(
-                            f"{category_name} "
-                            f"({len(category_assets)})",
-                            icon="folder"
-                        ).classes("w-full"):
+                    def refresh_table():
 
-                            for asset in sorted(
-                                category_assets,
-                                key=asset_label
-                            ):
+                        table_container.clear()
 
-                                ui.label(
-                                    f"{asset.get('asset_tag') or '-'} | "
-                                    f"{asset.get('serial') or '-'} | "
-                                    f"{asset.get('name') or '-'}"
-                                )
+                        search_text = (
+                            search_input.value or ""
+                        ).strip().lower()
+
+                        filtered_rows = []
+
+                        for row in rows:
+
+                            if not search_text:
+                                filtered_rows.append(row)
+                                continue
+
+                            searchable_text = " ".join(
+                                display_value(value)
+                                for value in row.values()
+                            ).lower()
+
+                            if search_text in searchable_text:
+                                filtered_rows.append(row)
+
+                        with table_container:
+
+                            ui.label(
+                                f"Showing "
+                                f"{len(filtered_rows)} "
+                                f"of {len(rows)} assets"
+                            ).classes(
+                                "text-grey-7"
+                            )
+
+                            columns = []
+
+                            for label, _ in standard_fields:
+
+                                columns.append({
+                                    "name": label,
+                                    "label": label,
+                                    "field": label,
+                                    "sortable": True,
+                                    "align": "left",
+                                })
+
+                            for field_name in custom_field_names:
+
+                                columns.append({
+                                    "name": field_name,
+                                    "label": field_name,
+                                    "field": field_name,
+                                    "sortable": True,
+                                    "align": "left",
+                                })
+
+                            ui.table(
+                                columns=columns,
+                                rows=filtered_rows,
+                                row_key="Asset ID",
+                                pagination={
+                                    "rowsPerPage": 25
+                                },
+                            ).props(
+                                "dense bordered"
+                            ).classes(
+                                "w-full"
+                            )
+
+                    search_input.on(
+                        "update:model-value",
+                        refresh_table
+                    )
+
+                    refresh_table()
 
             except Exception as error:
 
@@ -1115,7 +1416,9 @@ with ui.tab_panels(
 
                     ui.label(
                         f"Could not load ECAMi inventory: {error}"
-                    ).classes("text-negative")
+                    ).classes(
+                        "text-negative"
+                    )
 
         ui.button(
             "Load / Refresh ECAMi Inventory",
@@ -1124,7 +1427,6 @@ with ui.tab_panels(
         )
 
         load_ecami_inventory()
-
 
     # =====================================================
     # Target Modules
