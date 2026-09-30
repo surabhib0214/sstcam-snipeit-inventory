@@ -2139,8 +2139,9 @@ with ui.tab_panels(
 # Start application
 # =========================================================
 
+
 ui.run(
     host="0.0.0.0",
-    port=int(os.environ.get("PORT", 10000)),
+    port=int(os.environ["PORT"]),
     reload=False
 )
